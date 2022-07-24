@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import photo from "../assets/photo.jpg";
 
@@ -32,22 +32,25 @@ const ReadMore = styled.div`
   cursor: pointer;
 `;
 
-function BlogPost(props) {
+function BlogPost({ postItem }) {
+  const navigate = useNavigate();
+  // console.log("postItem", postItem);
   return (
     <PostContainer>
       <PostTitle>
-        <h2>Post Title</h2>
-        <span>Posted on October 5, 2016 by Aigars</span>
+        <h2>{postItem.title}</h2>
+        <span>{`Posted ${postItem.created_at} by Aigars`}</span>
       </PostTitle>
 
-      <Image src={photo} alt="photo of a post" />
+      <Image src={postItem.coverImage.url} alt="photo of a post" />
 
-      <PostText>
-        All children, except one, grow up. They soon know that they will grow
-        up, and the way Wendy knew was this.jgkksji
-      </PostText>
+      <PostText>{postItem.content}</PostText>
 
-      <ReadMore>| Read more |</ReadMore>
+      <ReadMore
+        onClick={() => navigate(`posts/${postItem.id}`, { state: postItem })}
+      >
+        | Read more |
+      </ReadMore>
 
       <hr />
     </PostContainer>
