@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   allPosts: [],
   displaySetting: { perPage: 0, totalPosts: 0 },
+  currentPage: 1,
 };
 
 const postSlice = createSlice({
@@ -11,12 +12,16 @@ const postSlice = createSlice({
   initialState,
 
   reducers: {
-    initializePosts(state, action) {
+    updatePosts(state, action) {
       state.allPosts = action.payload;
     },
 
     setDisplaySetting(state, action) {
       state.displaySetting = { ...action.payload };
+    },
+
+    updateCurrentPage(state, action) {
+      state.currentPage = action.payload;
     },
   },
 });

@@ -16,6 +16,7 @@ import post from "../api/post";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postActions } from "../store/postsSlice";
+import Pagination from "../components/Pagination";
 
 const BlogPostSection = styled.div`
   display: flex;
@@ -47,21 +48,35 @@ const SearchBox = styled.div`
 function Index(props) {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.postsDisplay.allPosts);
+  const currentPage = useSelector((state) => state.postsDisplay.currentPage);
+
   const { perPage, totalPosts } = useSelector(
     (state) => state.postsDisplay.displaySetting
   );
 
-  const getAllPost = async () => {
-    const response = await post.getAllPosts("blog");
+  const handlePageChange = (page) => {
+    dispatch(postActions.updateCurrentPage(page));
+  };
+
+  const handleGotoFirstPage = () => {
+    dispatch(postActions.updateCurrentPage(1));
+  };
+
+  const handleGotoLastPage = () => {
+    dispatch(postActions.updateCurrentPage(Math.floor(totalPosts / perPage)));
+  };
+
+  const getAllPost = async (currentPage) => {
+    const response = await post.getAllPosts("blog", currentPage);
     if (!response.ok) return console.log(response.date);
 
     dispatch(postActions.setDisplaySetting(response.data.meta));
-    dispatch(postActions.initializePosts(response.data.data));
+    dispatch(postActions.updatePosts(response.data.data));
   };
 
   useEffect(() => {
-    getAllPost();
-  }, []);
+    getAllPost(currentPage);
+  }, [currentPage]);
 
   return (
     <>
@@ -72,6 +87,14 @@ function Index(props) {
         <Blog>
           {posts &&
             posts.map((post) => <BlogPost key={post.id} postItem={post} />)}
+          <Pagination
+            itemsCount={totalPosts}
+            pageSize={perPage}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            onGotoFirstPage={handleGotoFirstPage}
+            onGotoLastPage={handleGotoLastPage}
+          />
         </Blog>
         <About>
           <AuthorInfo />

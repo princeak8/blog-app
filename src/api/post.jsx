@@ -5,7 +5,7 @@ const SAVE_TAG = "/admin/tag/save";
 const IMAGE_UPLOAD_URL = "/admin/file/save";
 const SAVE_POST_URL = "/admin/post/save";
 const UPDATE_POST_URL = "/admin/post/update";
-const ALL_POST = "/post/posts";
+const ALL_POST = "/post/posts/";
 const PUBLISH = "/admin/post/toggle_publish/";
 const DELETE_URL = "/admin/post/delete/";
 
@@ -18,7 +18,8 @@ const DELETE_URL = "/admin/post/delete/";
 //     }
 //   );
 
-const getAllPosts = (domain) => client.apiPostClient.get(domain + ALL_POST, {});
+const getAllPosts = (domain, currentPage) =>
+  client.apiPostClient.get(domain + ALL_POST + currentPage, {});
 
 // const togglePublish = (id, domain, accessToken) =>
 //   client.apiPostClient.get(
