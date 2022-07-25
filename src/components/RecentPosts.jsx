@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import RecentPost from "./RecentPost";
 
@@ -18,15 +19,15 @@ const Title = styled.div`
 `;
 
 function RecentPosts(props) {
+  const latestPosts = useSelector((state) => state.postsDisplay.latestPosts);
+
   return (
     <Container>
       <Title>
         <h2>RECENT POSTS</h2>
       </Title>
-      <RecentPost />
-      <RecentPost />
-      <RecentPost />
-      <RecentPost />
+      {latestPosts &&
+        latestPosts.map((post) => <RecentPost key={post.id} postItem={post} />)}
     </Container>
   );
 }

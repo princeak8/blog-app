@@ -48,6 +48,7 @@ const SearchBox = styled.div`
 function Index(props) {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.postsDisplay.allPosts);
+
   const currentPage = useSelector((state) => state.postsDisplay.currentPage);
 
   const { perPage, totalPosts } = useSelector(
@@ -68,15 +69,26 @@ function Index(props) {
 
   const getAllPost = async (currentPage) => {
     const response = await post.getAllPosts("blog", currentPage);
-    if (!response.ok) return console.log(response.date);
+    if (!response.ok) return console.log(response.data);
 
     dispatch(postActions.setDisplaySetting(response.data.meta));
     dispatch(postActions.updatePosts(response.data.data));
   };
 
+  const getLatestPosts = async () => {
+    const response = await post.getLatestPosts("blog");
+    if (!response.ok) return console.error(response.data);
+
+    dispatch(postActions.updateLatestPosts(response.data.data));
+  };
+
   useEffect(() => {
     getAllPost(currentPage);
   }, [currentPage]);
+
+  useEffect(() => {
+    getLatestPosts();
+  }, []);
 
   return (
     <>
