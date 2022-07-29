@@ -20,13 +20,18 @@ const Info = styled.div`
   gap: 10px;
 `;
 
-function RecentPost(props) {
+function RecentPost({ postItem }) {
+  console.log(
+    "🚀 ~ file: RecentPost.jsx ~ line 24 ~ RecentPost ~ postItem",
+    postItem
+  );
+
   return (
     <Container>
-      <Image src={photo} alt="photo of a post" />
+      <Image src={postItem.coverImage.url} alt="photo of a post" />
       <Info>
-        <span>Post Title</span>
-        <span> - 12 Nov, 2015</span>
+        <span>{postItem.title}</span>
+        <span> - {postItem.created_at}</span>
       </Info>
     </Container>
   );
