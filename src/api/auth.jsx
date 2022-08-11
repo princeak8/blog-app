@@ -1,12 +1,21 @@
 import client from "./client";
 
-const endpoint = "login";
+const domain = process.env.REACT_APP_DOMAIN;
+const loginUrl = domain+'/auth/login';
+const registerUrl = domain+'/auth/register';
 
-const loginUser = (email, password) =>
-  client.apiAuthClient.post(
-    endpoint,
-    { email, password },
+export const loginUser = (userDetails) =>
+  client.apiPostClient.post(
+    loginUrl,
+    { ...userDetails },
     { headers: { "Content-Type": "application/json" } }
   );
 
-export default { loginUser };
+export const registerUser = (userDetails) => //console.log('register User', userDetails)
+  client.apiPostClient.post(
+    registerUrl,
+    { ...userDetails },
+    { headers: { "Content-Type": "application/json" } }
+  );
+
+//export default { loginUser, registerUser };

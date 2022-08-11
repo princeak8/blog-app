@@ -20,7 +20,7 @@ const Title = styled.div`
 
 function RecentPosts(props) {
   const latestPosts = useSelector((state) => state.postsDisplay.latestPosts);
-
+  console.log('latest posts: ', latestPosts);
   return (
     <Container>
       <Title>

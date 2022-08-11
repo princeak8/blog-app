@@ -1,5 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useRef, useState } from "react";
+import { UserStore } from '../store/UserStore';
+import { useNavigate } from "react-router-dom";
 
 const BlogHeader = styled.div`
 display: flex;
@@ -12,11 +16,15 @@ justify-content: center;
 `;
 
 function BlogTitle(props) {
+  const settings = useSelector((state) => state.settings);
+  
+  //localStorage.setItem("user", 'Aka');
+  
   return (
-    <BlogHeader>
-      <h1>Blog Title</h1>
-      <span>Blog motto can be added here</span>
-    </BlogHeader>
+    <>
+      <h1 style={{display:'flex', justifyContent: 'center'}}>{settings.blog_name}</h1>
+    
+    </>
   );
 }
 

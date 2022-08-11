@@ -45,6 +45,9 @@ const SearchBox = styled.div`
   margin-top: 60px;
   // background-color: red;
 `;
+
+const domain = process.env.REACT_APP_DOMAIN;
+
 function Index(props) {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.postsDisplay.allPosts);
@@ -68,54 +71,59 @@ function Index(props) {
   };
 
   const getAllPost = async (currentPage) => {
-    const response = await post.getAllPosts("blog", currentPage);
+    const response = await post.getAllPosts(domain, currentPage);
     if (!response.ok) return console.log(response.data);
 
     dispatch(postActions.setDisplaySetting(response.data.meta));
     dispatch(postActions.updatePosts(response.data.data));
   };
 
-  const getLatestPosts = async () => {
-    const response = await post.getLatestPosts("blog");
-    if (!response.ok) return console.error(response.data);
-
-    dispatch(postActions.updateLatestPosts(response.data.data));
-  };
+  
 
   useEffect(() => {
     getAllPost(currentPage);
   }, [currentPage]);
 
-  useEffect(() => {
-    getLatestPosts();
-  }, []);
+  const renderContent = () => {
+      if(posts) {
+          return (
+            <Blog>
+                {posts &&
+                  posts.map((post) => <BlogPost key={post.id} postItem={post} />)}
+                  {renderPagination()}
+          </Blog>
+          );
+      }else{
+          return (<p>Fetching Posts ...</p>);
+      } 
+  }
+
+  const renderPagination = () => {
+      if(totalPosts > perPage) {
+          return (
+                <Pagination
+                    itemsCount={totalPosts}
+                    pageSize={perPage}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChange}
+                    onGotoFirstPage={handleGotoFirstPage}
+                    onGotoLastPage={handleGotoLastPage}
+                />
+          );
+      }
+  }
+
+  //console.log('posts: ', posts);
+  //console.log(settings.blog_name);
 
   return (
     <>
       <Header />
       <BlogTitle />
-      <ImageSlider />
       <BlogPostSection>
-        <Blog>
-          {posts &&
-            posts.map((post) => <BlogPost key={post.id} postItem={post} />)}
-          <Pagination
-            itemsCount={totalPosts}
-            pageSize={perPage}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-            onGotoFirstPage={handleGotoFirstPage}
-            onGotoLastPage={handleGotoLastPage}
-          />
-        </Blog>
+        {renderContent()}
         <About>
-          <AuthorInfo />
-          <FollowSocials />
           <RecentPosts />
-          <SearchBox>
-            <Search />
-          </SearchBox>
-          <Categories />
         </About>
       </BlogPostSection>
       <Footer />

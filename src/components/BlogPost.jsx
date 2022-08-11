@@ -34,7 +34,15 @@ const ReadMore = styled.div`
 
 function BlogPost({ postItem }) {
   const navigate = useNavigate();
-  // console.log("postItem", postItem);
+  const commentsCount = () => {
+      let commentCount = postItem.comments.length;
+      if(commentCount > 0) {
+        //postItem.comments.map(())
+          return postItem.comments.reduce((curr, comment) => curr + comment.replies.length, commentCount);
+      }
+      return 0
+  }
+  //console.log("postItem", commentsCount());
   return (
     <PostContainer>
       <PostTitle>
@@ -44,12 +52,12 @@ function BlogPost({ postItem }) {
 
       <Image src={postItem.coverImage.url} alt="photo of a post" />
 
-      <PostText>{postItem.content}</PostText>
+      <PostText>{postItem.preview}...</PostText>
 
       <ReadMore
-        onClick={() => navigate(`posts/${postItem.id}`, { state: postItem })}
+        onClick={() => navigate(`posts/${postItem.id}`, { state: postItem.id })}
       >
-        | Read more |
+        | <b style={{textDecorationLine: "underline", cursor: "pointer"}}>Read more</b> | Comments({commentsCount()})
       </ReadMore>
 
       <hr />

@@ -19,10 +19,10 @@ const DELETE_URL = "/admin/post/delete/";
 //   );
 
 const getAllPosts = (domain, currentPage) =>
-  client.apiPostClient.get(domain + ALL_POST + currentPage, {});
+    client.apiPostClient.get(domain + ALL_POST + currentPage, {});
 
 const getLatestPosts = (domain) =>
-  client.apiPostClient.get(domain + LATEST_POST_URL, {});
+    client.apiPostClient.get(domain + LATEST_POST_URL, {});
 
 // const saveTag = (domain, accessToken, tag) =>
 //   client.apiPostClient.post(

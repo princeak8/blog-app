@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import photo from "../assets/photo.jpg";
 
@@ -20,19 +21,20 @@ const AboutText = styled.div`
 `;
 
 function AuthorInfo(props) {
-  return (
-    <AboutContainer>
-      <AboutTitle>
-        <h2>About Me</h2>
-      </AboutTitle>
-      <img src={photo} alt="photo of a post" height="250" width="100%" />
 
-      <AboutText>
-        All children, except one, grow up. They soon know that they will grow
-        up, and the way Wendy knew was this.jgkksji
-      </AboutText>
-    </AboutContainer>
-  );
+    const settings = useSelector((state) => state.settings);
+    return (
+      <AboutContainer>
+        <AboutTitle>
+          <h2>About Me</h2>
+        </AboutTitle>
+        <img src={photo} alt="photo of a post" height="250" width="100%" />
+
+        <AboutText>
+          {settings.about}
+        </AboutText>
+      </AboutContainer>
+    );
 }
 
 export default AuthorInfo;

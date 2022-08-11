@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import modalReducer from "./modalSlice";
 import userReducer from "./userSlice";
 import postReducer from "./postsSlice";
+import commentReducer from "./CommentsSlice";
+import settingsReducer from './settingsSlice';
 
 const store = configureStore({
   reducer: {
-    modal: modalReducer,
-    userDisplay: userReducer,
-    postsDisplay: postReducer,
+      userDisplay: userReducer,
+      postsDisplay: postReducer,
+      settings: settingsReducer,
+      comment: commentReducer
   },
 });
 

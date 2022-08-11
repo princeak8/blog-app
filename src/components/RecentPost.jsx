@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import photo from "../assets/photo.jpg";
 
@@ -21,16 +22,19 @@ const Info = styled.div`
 `;
 
 function RecentPost({ postItem }) {
-  console.log(
-    "🚀 ~ file: RecentPost.jsx ~ line 24 ~ RecentPost ~ postItem",
-    postItem
-  );
+    const navigate = useNavigate();
+  // console.log(
+  //   "🚀 ~ file: RecentPost.jsx ~ line 24 ~ RecentPost ~ postItem",
+  //   postItem
+  // );
 
   return (
     <Container>
       <Image src={postItem.coverImage.url} alt="photo of a post" />
       <Info>
-        <span>{postItem.title}</span>
+        <b style={{textDecorationLine: "underline", cursor: "pointer"}} onClick={() => navigate(`posts/${postItem.id}`, { state: postItem.id })}>
+            {postItem.title}
+        </b>
         <span> - {postItem.created_at}</span>
       </Info>
     </Container>
