@@ -15,6 +15,7 @@ import Index from "./screens/Index";
 import Register from "./screens/Register";
 import Login from "./screens/Login";
 import About from "./screens/About";
+import ConfirmEmailLink from "./screens/ConfirmEmail";
 
 function App() {
 
@@ -67,6 +68,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/posts/:id" element={<FullBlogPost />} />
+        <Route path="/confirm_email/:signature" element={<ConfirmEmailLink />} />
         <Route path="/" element={<Index />} />
     </Routes>
   );

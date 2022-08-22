@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import RecentPosts from "../components/RecentPosts";
 import { useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DOMPurify from 'dompurify';
 import { request } from "../api";
 import { postActions } from "../store/CommentsSlice";
@@ -57,7 +57,7 @@ function FullBlogPost(props) {
         id: '', title: '', content:'', tags:{}, comments:[], comments_count:0, reader:{}, 
         coverImage:{}, created_at:'', views_count:0, loading: false, errorMsg: '', loaded: false, loadedSuccessfully: false
     });
-    const post_id = location.state;
+    const post_id = useParams().id
     console.log('post_id', post_id);
 
     useEffect(() => {

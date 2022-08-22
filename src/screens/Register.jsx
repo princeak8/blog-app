@@ -30,7 +30,7 @@ function Register(props) {
     const handleSubmit = async (event) => {
         //Submit form
         event.preventDefault();
-        let userData = {name: state.name, email: state.email, password: state.password, domain:process.env.REACT_APP_DOMAIN};
+        let userData = {name: state.name, email: state.email, password: state.password, domain:process.env.REACT_APP_DOMAIN, domain_name:window.location.hostname};
         //console.log(userData);
         const response = await registerUser(userData);
         console.log(response.status);

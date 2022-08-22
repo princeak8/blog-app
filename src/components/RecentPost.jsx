@@ -32,10 +32,10 @@ function RecentPost({ postItem }) {
     <Container>
       <Image src={postItem.coverImage.url} alt="photo of a post" />
       <Info>
-        <b style={{textDecorationLine: "underline", cursor: "pointer"}} onClick={() => navigate(`posts/${postItem.id}`, { state: postItem.id })}>
-            {postItem.title}
-        </b>
-        <span> - {postItem.created_at}</span>
+          <Link style={{textDecorationLine: "underline", cursor: "pointer"}} to={`/posts/${postItem.id}`} onClick={() => this.forceUpdate}>
+              {postItem.title}
+          </Link>
+          <span> - {postItem.created_at}</span>
       </Info>
     </Container>
   );
