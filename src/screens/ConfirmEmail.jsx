@@ -3,13 +3,14 @@ import { useContext } from "react";
 import { useEffect } from "react";
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Request } from "../api";
+import { request } from "../api";
 import { userActions } from "../store/userSlice";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import Header from "../components/Header";
 
 function ConfirmEmail(props) {
     const signature = useParams().signature
+    const navigate = useNavigate();
     const [state, setState] = useState({errorMsg:[], successMsg: '', login: false, loaded: false});
 
     useEffect(() => {
